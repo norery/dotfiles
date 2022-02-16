@@ -1,0 +1,86 @@
+#=============================================================================
+# basic.toml --- basic configuration example for SpaceVim
+# Copyright (c) 2016-2021 Wang Shidong & Contributors
+# Author: Wang Shidong < wsdjeg at 163.com >
+# URL: https://spacevim.org
+# License: GPLv3
+#=============================================================================
+
+# All SpaceVim option below [option] section
+[options]
+    # set spacevim theme. by default colorscheme layer is not loaded,
+    # if you want to use more colorscheme, please load the colorscheme
+    # layer
+    colorscheme = "gruvbox"
+    colorscheme_bg = "dark"
+    # Disable guicolors in basic mode, many terminal do not support 24bit
+    # true colors
+
+    enable_guicolors = true
+    # Disable statusline separator, if you want to use other value, please
+    # install nerd fonts
+    statusline_separator = "arrow"
+    statusline_iseparator = "arrow"
+    buffer_index_type = 4
+    enable_tabline_filetype_icon = true
+    enable_statusline_mode = false
+    # 设置顶部标签列表序号类型，有以下五种类型，分别是 0 - 4
+    # 0: 1 ➛ ➊ 
+    # 1: 1 ➛ ➀
+    # 2: 1 ➛ ⓵
+    # 3: 1 ➛ ¹
+    # 4: 1 ➛ 
+    buffer_index_type = 0
+    statusline_separator = 'fire'
+    escape_key_binding = 'jj'
+    # 文树默认在左边打开
+    # filetree_direction = "left"
+
+    vim_help_language = "cn"
+
+    # # My own options
+    filemanager = "defx"
+    autocomplete_method = "coc"
+    bootstrap_before = "myspacevim#before"
+    bootstrap_after = "myspacevim#after"
+
+# # Enable autocomplete layer
+# [[layers]]
+# name = 'autocomplete'
+# auto_completion_return_key_behavior = "complete"
+# auto_completion_tab_key_behavior = "cycle"
+
+[[layers]]
+  name = "colorscheme"
+
+[[layers]]
+  # 在顶部打开一个shell，自动定位当当前文件夹，最后输入exit退出。
+  name = 'shell'
+  default_position = 'top'
+  default_height = 30
+
+# 中文用户，可以在配置文件里面添加以下配置来启用该模块，以获取中文帮助文档：
+# 加载该模块后，默认的帮助文件语言并未被设置为中文，还需要将 SpaceVim 选项 vim_help_language 的值设为 "cn"。
+# [[layers]]
+# name = "chinese"
+
+[[layers]]
+    name = "incsearch"
+
+[[layers]]
+  name = 'fzf'
+
+[[layers]]
+  name = "lang#python"
+
+[[layers]]
+  name = "format"
+
+# [[layers]]
+  # name = "check"
+
+[[layers]]
+   name = "debug"
+
+[[custom_plugins]]
+    repo = "luochen1990/rainbow"
