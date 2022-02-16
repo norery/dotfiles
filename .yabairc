@@ -1,0 +1,124 @@
+#!/usr/bin/env sh
+
+# the scripting-addition must be loaded manually if
+# you are running yabai on macOS Big Sur. Uncomment
+# the following line to have the injection performed
+# when the config is executed during startup.
+#
+# for this to work you must configure sudo such that
+# it will be able to run the command without password
+#
+# see this wiki page for information:
+#  - https://github.com/koekeishiya/yabai/wiki/Installing-yabai-(latest-release)
+#
+sudo yabai --load-sa
+yabai -m signal --add event=dock_did_restart action="sudo yabai --load-sa"
+
+# global settings
+yabai -m config mouse_follows_focus          true
+yabai -m config focus_follows_mouse          true
+yabai -m config window_placement             second_child
+yabai -m config window_topmost               off
+yabai -m config window_shadow                on
+yabai -m config window_opacity_duration      0.0
+yabai -m config active_window_opacity        1.0
+yabai -m config normal_window_opacity        0.90
+yabai -m config split_ratio                  0.45
+yabai -m config auto_balance                 off
+yabai -m config mouse_modifier               fn
+yabai -m config mouse_action1                move
+yabai -m config mouse_action2                resize
+yabai -m config mouse_drop_action            swap
+
+# general space settings
+yabai -m config layout                       bsp #默认使用平铺式布局
+# yabai -m config layout                       float #默认使用浮动式布局
+# Override default layout for space 9 only
+yabai -m config --space 9 layout float
+yabai -m config --space 7 layout float
+
+yabai -m config top_padding                  12
+yabai -m config bottom_padding               12
+yabai -m config left_padding                 12
+yabai -m config right_padding                12
+yabai -m config window_gap                   06
+
+
+# ====== Border settings =======================
+
+yabai -m config window_border                on
+yabai -m config window_border_width          6
+# red
+yabai -m config active_window_border_color   0xfac23541
+yabai -m config normal_window_border_color   0x7f6123A#noborder
+yabai -m config insert_window_border_color   0xffCF515C
+
+# ====== List of rules =========================
+# 可以从左上角苹果符号 () 旁边的 macOS 菜单栏中检查应用程序名称。
+# workd after open a new software or restart yabai
+##### space 1 -- main
+yabai -m space 1 --label main
+yabai -m rule --add label=zotero app="^Zotero$" space=main
+
+##### space 2 -- Shell
+yabai -m space 2 --label shell 
+yabai -m rule --add label=iterm app="^iTerm2$" space=shell
+
+##### space 3
+yabai -m space 3 --label surf
+# 1. chrome -- browser
+yabai -m rule --add label=chrome app="^Google Chrome$" space=surf
+# 2. Safari 
+yabai -m rule --add label=safari app="^Safari浏览器$" space=surf
+
+##### space 4 -- communication
+yabai -m space 4 --label chat
+yabai -m rule --add label=wechat app="^微信" space=chat
+yabai -m rule --add label=qq app="^QQ" space=chat
+# yabai -m rule --add label=finder app="^访达" space=chat
+
+##### space 5 -- paper
+yabai -m space 5 --label paper
+yabai -m rule --add label=word app="^Microsoft Word" space=paper
+yabai -m rule --add label=pdf app="^PDF Expert" space=paper
+
+##### space 6 -- data
+yabai -m space 6 --label data
+yabai -m rule --add label=notion app="^Notion" space=data
+yabai -m rule --add label=mweb app="^MWeb" space=data
+yabai -m rule --add label=logseq app="^Logseq" space=data
+
+##### space 7 -- Cal
+yabai -m space 7 --label Cal
+yabai -m rule --add label=matlab app="^MATLAB" space=Cal
+
+##### space 8 -- Mess
+yabai -m space 8 --label mess
+yabai -m rule --add label=oulu app="^欧陆字典" space=mess
+
+##### space 9 Entertainment
+yabai -m space 9 --label Fun
+yabai -m rule --add label=musicapp app="^音乐$" space=Fun
+yabai -m rule --add label=iina app="^IINA$" space=Fun
+yabai -m rule --add label=neteaseMusic app="^网易云音乐" space=Fun
+
+##### space 10 Entertainment
+yabai -m space 10 --label Blog
+yabai -m rule --add label=rstudio app="^RStudio$" space=Blog
+
+# floating windows are always on top (default: off)
+yabai -m config window_topmost on
+
+# window opacity (default: off)
+yabai -m config window_opacity on
+yabai -m config active_window_opacity 0.95
+yabai -m config normal_window_opacity 0.9
+
+# folating windows by default
+yabai -m rule --add app= " ^System Preferences$ " manage=off
+# yabai -m rule --add app="微信" sticky=on layer=above manage=off
+# yabai -m rule --add app="微信" sticky=on manage=off
+
+yabai -m rule --add app= " ^Digital Colou?r Meter$ " sticky=on
+
+echo "yabai configuration loaded.."
